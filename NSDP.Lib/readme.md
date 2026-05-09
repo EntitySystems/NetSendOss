@@ -63,10 +63,7 @@ from host-2 via this RPC:
 
 ```
 struct UserInfo {
-    address: "someuser@nsdp.host-2.com",
-    aliases: [
-        "someuser-alias@nsdp.host-2.com"
-    ],
+    address: "someuser#nsdp.host-2.com",
     requiresEncryption: true,
     encryptionKeys: [
         {
@@ -79,4 +76,19 @@ struct UserInfo {
 UserInfo userInfo = GetUserInfoRpc({
     userAddress: "someuser@nsdp.host-2.com"
 });
+```
+
+If an encryption scheme is selected, the sender must encrypt all messages using one of the user keys.
+
+```
+struct NsdpMessagePayload {
+    sender: "sender-user#nsdp.host-1.com",
+    encryptionKeyHash: // byte array of SHA-512 hash,
+    textContent: // byte array of encrypted or plain UTF-8 text,
+    attachments: [
+        fileName: "voice_note.mp3",
+        encrypted: true,
+        data: // byte array of data
+    ]
+}
 ```
