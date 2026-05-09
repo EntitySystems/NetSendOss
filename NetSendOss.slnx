@@ -2,5 +2,6 @@
   <Project Path="NetSend.Core/NetSend.Core.csproj" />
   <Project Path="NetSend.Database/NetSend.Database.csproj" />
   <Project Path="NetSend.ServerInstance/NetSend.ServerInstance.csproj" />
+  <Project Path="NetSend.Shared/NetSend.Shared.csproj" />
   <Project Path="NSDP.Lib/NSDP.Lib.csproj" />
 </Solution>

@@ -11,15 +11,14 @@ All characters of an address must be of ASCII format. The host defines rules suc
 `example-user#nsdp.netsend.pw` is a valid user.
 `example-user#255.211.9.92` is a valid user.
 
-The host relay must have TXT DNS records set as such:
+The host relay must have TXT DNS records set to a json config URL as such:
 
 Host: `nsdp.netsend.pw`
-Record:
+Record: `NSDP_CONF: nsdp.netsend.pw/.well-known/nsdp_config.json`
 
 ```json
-// NSDP
 {
-  "protocol": "NSDP",
+  "protocol": "NSDP_1",
   "hosts": [
     {
       "cidr": "255.211.9.92/32",
@@ -35,7 +34,7 @@ Record:
   "sender_keys": [
     {
       "alg": "ES384",
-      "key": "base64 public key here"
+      "pub_key": "base64 public key here"
     }
   ]
 }
@@ -84,6 +83,10 @@ If an encryption scheme is selected, the sender must encrypt all messages using 
 struct NsdpMessagePayload {
     sender: "sender-user#nsdp.host-1.com",
     encryptionKeyHash: // byte array of SHA-512 hash,
+    symmetricKeyInfo: {
+        key: // byte array of encrypted symmetric key,
+        alg: "AES256"
+    }
     textContent: // byte array of encrypted or plain UTF-8 text,
     attachments: [
         fileName: "voice_note.mp3",
